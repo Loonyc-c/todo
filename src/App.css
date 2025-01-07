@@ -1,28 +1,40 @@
 #root {
-  max-width: 1280px;
   margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
-}
-
-.app {
-  width: 100vh;
-  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: whitesmoke;
+  height: 100vh;
+  width: 100vh;
 }
+
+.app {
+  width: 370px;
+}
+
 .container {
   width: 380px;
   display: flex;
   padding: 24px 16px;
   flex-direction: column;
-  /* justify-content: center; */
+  justify-content: center;
   align-items: center;
   gap: 40px;
   height: auto;
+  position: relative;
+  background: #FFF;
+  box-shadow: 0px 0px 12px 0px rgba(0, 0, 0, 0.16);
 }
+.container h1{
+  text-align: center;
+}
+
+.container button {
+  border: none;
+  border-radius: 6px;
+  background: #FFF;
+  box-shadow: 0px 0px 12px 0px rgba(0, 0, 0, 0.16);
+}
+
 .title {
   width: 100%;
   height: auto;
@@ -30,13 +42,15 @@
   margin: 0px;
   color: black;
 }
+
 .newTaskContainer {
   display: flex;
   gap: 10px;
 }
+
 .newTaskContainer input {
   width: 280px;
-  height: 40px;
+  height: 30px;
   padding: 8px 16px;
   background-color: white;
   border-radius: 10px;
@@ -44,19 +58,29 @@
   color: black;
   font-size: 14px;
 }
-.newTaskButton {
-  background-color: #3c82f6;
+
+.newTaskContainer button {
+  background-color: #3C82F6;
+  width: 60px;
+  color: white;
 }
+
 .filterContainer {
   display: flex;
   width: 100%;
   gap: 10px;
 }
+
 .tab {
   padding: 4px 12px;
   background-color: whitesmoke;
   color: black;
   font-size: 12px;
+}
+.taskList{
+  display: flex;
+  flex-direction: column;
+  gap: 20px
 }
 .taskList div {
   color: black;
@@ -67,27 +91,54 @@
   align-items: center;
   gap: 10px;
   position: relative;
-  background-color: #F9FAFB;
-  border-radius: 10px;
+  border-radius: var(--radius-rounded-md, 6px);
+  background: #F9FAFB;
 }
+
 .taskList p {
   font-size: 14px;
+  width: 70%;
+  overflow:hidden;
+  margin: 0px;
 }
+
 .taskList button {
   position: absolute;
-  left: 70%;
+  left: 80%;
   font-size: 14px;
-  padding:6px 12px ;
+  padding: 6px 12px;
   color: #EF4444;
   background-color: #FEF2F2;
 }
+
 .checkBox {
   width: 20px;
   height: 20px;
   fill: #0275ff;
-
   stroke-width: 1px;
   stroke: #fff;
-
   filter: drop-shadow(0px 0px 0px #015fcc);
+}
+
+.taskStats {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  align-self: stretch;
+  border-top: 1px solid var(--border-border-border, #E4E4E7);
+}
+
+.taskStats p {
+  color: black;
+  text-align: start;
+  justify-content: center;
+  align-items: center;
+}
+
+.taskStats button {
+  left: 55%;
+  font-size: 14px;
+  padding: 6px 12px;
+  color: #EF4444;
+  background-color: #FEF2F2;
 }
