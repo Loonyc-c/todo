@@ -7,6 +7,7 @@ function App() {
     { text: "All", status: "ALL" },
     { text: "Active", status: "ACTIVE" },
     { text: "Completed", status: "COMPLETED" },
+    { text: "Logs", status: "LOGS" },
   ];
 
   const [filter, setFilter] = useState("ALL");
@@ -15,21 +16,29 @@ function App() {
 
   const addTask = () => {
     if (newTask === "") {
-      alert("yum bicheech sda ve")
-      return
+      alert("Please enter a task.");
+      return;
+    }
+    const task = {
+      id: uuidv4(),
+      text: newTask,
+      status: "ACTIVE",
+      logs: [{ action: "Added", time: new Date().toLocaleString() }],
     };
-    const task = { id: uuidv4(), text: newTask, status: "ACTIVE" };
-    console.log("New Task ID:", task.id);
     setTasks([...tasks, task]);
     setNewTask("");
-    console.log(tasks)
   };
 
   const completeTask = (id) => {
     const updatedTasks = tasks.map((task) => {
       if (task.id === id) {
         return {
-          ...task, status: task.status === "COMPLETED" ? "ACTIVE" : "COMPLETED"
+          ...task,
+          status: "DELETED",
+          logs: [
+            ...task.logs,
+            { action: "Deleted", time: new Date().toLocaleString() },
+          ],
         };
       }
       return task;
@@ -38,12 +47,19 @@ function App() {
   };
 
   const deleteTask = (id) => {
-    const updatedTasks = [];
-    for (let i = 0; i < tasks.length; i++) {
-      if (tasks[i].id !== id) {
-        updatedTasks.push(tasks[i]);
+    const updatedTasks = tasks.map((task) => {
+      if (task.id === id) {
+        return {
+          ...task,
+          logs: [
+            ...task.logs,
+            { action: "Deleted", time: new Date().toLocaleString() },
+          ],
+        };
       }
-    setTasks(updatedTasks);
+      return task;
+    });
+    setTasks(updatedTasks.filter((task) => task.id !== id));
   };
 
   const changeFilter = (status) => {
@@ -51,11 +67,14 @@ function App() {
   };
 
   const filteredTasks = tasks.filter((task) => {
-    if (filter === "ALL") return true;
-    return task.status === filter;
+    if (filter === "ALL") return task.status !== "DELETED";
+    if (filter === "LOGS") return false;
   });
+
   const getTaskStats = () => {
-    const completedCount = tasks.filter((task) => task.status === "COMPLETED").length;
+    const completedCount = tasks.filter(
+      (task) => task.status === "COMPLETED"
+    ).length;
     const totalCount = tasks.length;
     return `${completedCount} of ${totalCount} tasks completed`;
   };
@@ -76,9 +95,14 @@ function App() {
             value={newTask}
             onChange={(e) => setNewTask(e.target.value)}
           />
-          <button onClick={addTask} style={{
-            outline: "none"
-          }}>Add</button>
+          <button
+            onClick={addTask}
+            style={{
+              outline: "none",
+            }}
+          >
+            Add
+          </button>
         </div>
 
         <div className="filterContainer">
@@ -87,10 +111,11 @@ function App() {
               key={button.status}
               onClick={() => changeFilter(button.status)}
               style={{
-                backgroundColor: filter === button.status ? "#3C82F6" : "#F3F4F6",
+                backgroundColor:
+                  filter === button.status ? "#3C82F6" : "#F3F4F6",
                 color: filter === button.status ? "white" : "black",
                 outline: "none",
-                height: "32px"
+                height: "32px",
               }}
             >
               {button.text}
@@ -98,32 +123,63 @@ function App() {
           ))}
         </div>
 
-        <div className="taskList">
-          {filteredTasks.map((task) => (
-            <div key={task.id} className="taskItem">
-              <input
-                type="checkbox"
-                checked={task.status === "COMPLETED"}
-                onChange={() => completeTask(task.id)}
-              />
-              <p
-                style={{
-                  textDecoration: task.status === "COMPLETED" ? "line-through" : "none",
-                }}
-              >
-                {task.text}
-              </p>
-              <button onClick={() => deleteTask(task.id)}>Delete</button>
-            </div>
-          ))}
-        </div>
-        <div className="taskStats">
-          <p>{getTaskStats()}</p>
-          <button onClick={clearCompletedTasks}>Clear Completed</button>
-        </div>
+        {filter === "LOGS" ? (
+          <div className="logsContainer">
+            <h3>Task Logs</h3>
+            {tasks.map((task) => (
+              <div key={task.id} className="taskLogs">
+                <h4
+                  style={{
+                    textDecoration:
+                      task.status === "DELETED" ? "line-through" : "none",
+                  }}
+                >
+                  {task.text} {task.status === "DELETED" && "(Deleted)"}
+                </h4>
+                {task.logs.map((log, index) => (
+                  <p key={index}>
+                    <strong>{log.action}:</strong> {log.time}
+                  </p>
+                ))}
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="taskList">
+            {filteredTasks.map((task) => (
+              <div key={task.id} className="taskItem">
+                <input
+                  type="checkbox"
+                  checked={task.status === "COMPLETED"}
+                  onChange={() => completeTask(task.id)}
+                  disabled={task.status === "DELETED"}
+                />
+                <p
+                  style={{
+                    textDecoration:
+                      task.status === "COMPLETED" ? "line-through" : "none",
+                    color: task.status === "DELETED" ? "gray" : "black",
+                  }}
+                >
+                  {task.text}
+                </p>
+                {task.status !== "DELETED" && (
+                  <button onClick={() => deleteTask(task.id)}>Delete</button>
+                )}
+              </div>
+            ))}
+          </div>
+        )}
+
+        {filter !== "LOGS" && (
+          <div className="taskStats">
+            <p>{getTaskStats()}</p>
+            <button onClick={clearCompletedTasks}>Clear Completed</button>
+          </div>
+        )}
       </div>
     </div>
   );
 }
-}
+
 export default App;

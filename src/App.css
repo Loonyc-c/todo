@@ -142,3 +142,19 @@
   color: #EF4444;
   background-color: #FEF2F2;
 }
+.logsContainer{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.logsContainer div{
+  width: 100%;
+  border-radius: var(--radius-rounded-md, 6px);
+  background: #F9FAFB ;
+  padding: 5px 5px;
+  
+}
+.taskLogs div {
+  padding: 0;
+}
