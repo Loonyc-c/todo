@@ -166,3 +166,9 @@ function App() {
 }
 
 export default App;
+// {filter !== "LOGS" && (
+//   <div className="taskStats">
+//     <p>{getTaskStats()}</p>
+//     <button onClick={clearCompletedTasks}>Clear Completed</button>
+//   </div>
+// )}
