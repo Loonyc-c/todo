@@ -32,13 +32,12 @@ function App() {
   const completeTask = (id) => {
     const updatedTasks = tasks.map((task) => {
       if (task.id === id) {
+        const newStatus = task.status === "COMPLETED" ? "ACTIVE" : "COMPLETED";
+        const logAction = newStatus === "COMPLETED" ? "Completed" : "Reactivated";
         return {
           ...task,
-          status: "DELETED",
-          logs: [
-            ...task.logs,
-            { action: "Deleted", time: new Date().toLocaleString() },
-          ],
+          status: newStatus,
+          logs: [...task.logs, { action: logAction, time: new Date().toLocaleString() }],
         };
       }
       return task;
@@ -51,10 +50,8 @@ function App() {
       if (task.id === id) {
         return {
           ...task,
-          logs: [
-            ...task.logs,
-            { action: "Deleted", time: new Date().toLocaleString() },
-          ],
+          status: "DELETED",
+          logs: [...task.logs, { action: "Deleted", time: new Date().toLocaleString() }],
         };
       }
       return task;
@@ -67,14 +64,13 @@ function App() {
   };
 
   const filteredTasks = tasks.filter((task) => {
-    if (filter === "ALL") return task.status !== "DELETED";
-    if (filter === "LOGS") return false;
+    if (filter === "ALL") return true;
+    if (filter === "LOGS") return false; 
+    return task.status === filter;
   });
 
   const getTaskStats = () => {
-    const completedCount = tasks.filter(
-      (task) => task.status === "COMPLETED"
-    ).length;
+    const completedCount = tasks.filter((task) => task.status === "COMPLETED").length;
     const totalCount = tasks.length;
     return `${completedCount} of ${totalCount} tasks completed`;
   };
@@ -111,8 +107,7 @@ function App() {
               key={button.status}
               onClick={() => changeFilter(button.status)}
               style={{
-                backgroundColor:
-                  filter === button.status ? "#3C82F6" : "#F3F4F6",
+                backgroundColor: filter === button.status ? "#3C82F6" : "#F3F4F6",
                 color: filter === button.status ? "white" : "black",
                 outline: "none",
                 height: "32px",
@@ -128,14 +123,7 @@ function App() {
             <h3>Task Logs</h3>
             {tasks.map((task) => (
               <div key={task.id} className="taskLogs">
-                <h4
-                  style={{
-                    textDecoration:
-                      task.status === "DELETED" ? "line-through" : "none",
-                  }}
-                >
-                  {task.text} {task.status === "DELETED" && "(Deleted)"}
-                </h4>
+                <h4>{task.text}</h4>
                 {task.logs.map((log, index) => (
                   <p key={index}>
                     <strong>{log.action}:</strong> {log.time}
@@ -152,20 +140,15 @@ function App() {
                   type="checkbox"
                   checked={task.status === "COMPLETED"}
                   onChange={() => completeTask(task.id)}
-                  disabled={task.status === "DELETED"}
                 />
                 <p
                   style={{
-                    textDecoration:
-                      task.status === "COMPLETED" ? "line-through" : "none",
-                    color: task.status === "DELETED" ? "gray" : "black",
+                    textDecoration: task.status === "COMPLETED" ? "line-through" : "none",
                   }}
                 >
                   {task.text}
                 </p>
-                {task.status !== "DELETED" && (
-                  <button onClick={() => deleteTask(task.id)}>Delete</button>
-                )}
+                <button onClick={() => deleteTask(task.id)}>Delete</button>
               </div>
             ))}
           </div>
