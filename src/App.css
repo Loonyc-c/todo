@@ -141,8 +141,26 @@
   align-items: center;
   align-self: stretch;
   border-top: 1px solid var(--border-border-border, #e4e4e7);
+  flex-direction: column;
+  padding: 20px 0px;
+  gap: 40px;
 }
+.taskStat{
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+.origin {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  gap: 5px;
+  align-items: center;
 
+}
+.origin a{
+  color: #015fcc;
+}
 .taskStats p {
   color: #000;
   font-family: Inter;
