@@ -19,19 +19,26 @@
   justify-content: center;
   align-items: center;
   gap: 40px;
-  height: auto;
+  max-height: 500px;
   position: relative;
-  background: #FFF;
+  background: #fff;
   box-shadow: 0px 0px 12px 0px rgba(0, 0, 0, 0.16);
 }
-.container h1{
+.container h1 {
+  color: #000;
   text-align: center;
+  font-family: Inter;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 28px;
+  letter-spacing: -0.5px;
 }
 
 .container button {
   border: none;
   border-radius: 6px;
-  background: #FFF;
+  background: #fff;
   box-shadow: 0px 0px 12px 0px rgba(0, 0, 0, 0.16);
 }
 
@@ -60,7 +67,7 @@
 }
 
 .newTaskContainer button {
-  background-color: #3C82F6;
+  background-color: #3c82f6;
   width: 60px;
   color: white;
 }
@@ -77,38 +84,46 @@
   color: black;
   font-size: 12px;
 }
-.taskList{
+.taskList {
   display: flex;
   flex-direction: column;
-  gap: 20px
+  gap: 20px;
+  overflow: scroll;
+  width: 100%;
 }
 .taskList div {
   color: black;
   width: 345px;
-  height: 62px;
   padding: 16px;
   display: flex;
   align-items: center;
   gap: 10px;
   position: relative;
   border-radius: var(--radius-rounded-md, 6px);
-  background: #F9FAFB;
+  background: #f9fafb;
 }
 
 .taskList p {
   font-size: 14px;
-  width: 70%;
-  overflow:hidden;
+  overflow: hidden;
   margin: 0px;
 }
-
+.emptyMessage {
+  color: #6b7280;
+  text-align: center;
+  font-family: Inter;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
 .taskList button {
   position: absolute;
   left: 80%;
   font-size: 14px;
   padding: 6px 12px;
-  color: #EF4444;
-  background-color: #FEF2F2;
+  color: #ef4444;
+  background-color: #fef2f2;
 }
 
 .checkBox {
@@ -125,36 +140,55 @@
   justify-content: space-between;
   align-items: center;
   align-self: stretch;
-  border-top: 1px solid var(--border-border-border, #E4E4E7);
+  border-top: 1px solid var(--border-border-border, #e4e4e7);
 }
 
 .taskStats p {
-  color: black;
-  text-align: start;
-  justify-content: center;
-  align-items: center;
+  color: #000;
+  font-family: Inter;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
 }
 
 .taskStats button {
   left: 55%;
   font-size: 14px;
   padding: 6px 12px;
-  color: #EF4444;
-  background-color: #FEF2F2;
+  color: #ef4444;
+  background-color: #fef2f2;
 }
-.logsContainer{
+.logsContainer {
   width: 100%;
   display: flex;
   flex-direction: column;
   gap: 10px;
+  overflow: scroll;
 }
-.logsContainer div{
+.logsContainer div {
   width: 100%;
   border-radius: var(--radius-rounded-md, 6px);
-  background: #F9FAFB ;
+  background: #f9fafb;
   padding: 5px 5px;
-  
 }
 .taskLogs div {
   padding: 0;
+}
+.taskItem p {
+  color: #000;
+  font-family: Inter;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+.taskLogs p {
+  font-size: 14px;
+}
+.taskLogs h4 {
+  font-weight: 600;
+}
+.filterContainer button {
+  padding: 0px 10px;
 }
