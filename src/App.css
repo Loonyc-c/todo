@@ -182,6 +182,7 @@
   font-style: normal;
   font-weight: 400;
   line-height: normal;
+  word-wrap: break-word;
 }
 .taskLogs p {
   font-size: 14px;
