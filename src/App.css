@@ -19,7 +19,7 @@
   justify-content: center;
   align-items: center;
   gap: 40px;
-  max-height: 500px;
+  height: auto;
   position: relative;
   background: #fff;
   box-shadow: 0px 0px 12px 0px rgba(0, 0, 0, 0.16);
@@ -88,12 +88,14 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
-  overflow: scroll;
+  overflow-y: auto;
   width: 100%;
+  max-height: calc(3 * (51px + 20px)); 
+  overflow-y: auto;  
+  
 }
 .taskList div {
   color: black;
-  width: 345px;
   padding: 16px;
   display: flex;
   align-items: center;
@@ -101,6 +103,7 @@
   position: relative;
   border-radius: var(--radius-rounded-md, 6px);
   background: #f9fafb;
+  height: auto;
 }
 
 .taskList p {
@@ -185,7 +188,7 @@
   overflow: scroll;
 }
 .logsContainer div {
-  width: 100%;
+ 
   border-radius: var(--radius-rounded-md, 6px);
   background: #f9fafb;
   padding: 5px 5px;

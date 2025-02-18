@@ -1,5 +1,6 @@
 import Button from "./Button";
 import EmptyMessages from "./Empty-Messages";
+import { useEffect } from "react";
 
 const TodoCard = (props) => {
   const { filter, tasks, setTasks } = props;
@@ -45,6 +46,7 @@ const TodoCard = (props) => {
     if (filter === "LOGS") return false;
     return task.status === filter;
   });
+
   return (
     <div className="taskList">
       <EmptyMessages filter={filter} tasks={tasks} />
